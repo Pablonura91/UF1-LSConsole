@@ -1,21 +1,23 @@
 <?php
 
 //Funcio per buscar un arxiu en un directori en concret.
-function find_file($source_route_file, $file) {
+function find_file($source_route_file, $file)
+{
 
     if (file_exists($source_route_file . "/" . $file)) {
-        echo "El fichero " . "<b>$file</b>" . " si que existe en el direcotrio: " . "<b>$source_route_file</b>";
+        echo "El fichero <b>$file</b> si que existe en el direcotrio: <b>$source_route_file</b>";
+    } else {
+        echo "El fichero <b>$file</b> no existe en el directorio: <b>$source_route_file</b> ";
     }
 }
 
-//Funció que ens mostrarà una sèrie d'informació/estadístiques d'un fitxer en concret.
-function stats_file($route_file_stats) {
-    //Captura la ruta + nom_fitxer, i obte totes les estadístiques del fitxer introduït.
+//Funcion que nos mostrara los stats de un fichero
+function stats_file($route_file_stats)
+{
+    //Captura la ruta y obtiene todas las estadisticas
     $statistics = stat($route_file_stats);
 
-    //Si l'arxiu existeix, s'agafen correctament les estadístiques.
     if ($statistics) {
-        //Agafo les estadístiques més rellevants del fitxer.
         $statistics_file_name = explode(".", $route_file_stats);
         $statistics_file_name2 = $statistics_file_name[0];
         $statistics_access_file = date("d F Y H:i:s", $statistics['atime']);
@@ -23,81 +25,78 @@ function stats_file($route_file_stats) {
         $statistics_creation_file = date("d F Y H:i:s", $statistics['ctime']);
         $statistics_size_file = $statistics['size'];
 
-        //Imprimeixo les estadístiques solicitades.
-        echo " <table border='1'>
-                            <tr>	
-                                <th bgcolor='#FFFFFFFF'>Ruta Completa</th>
-                                <th bgcolor='#FFFFFFFF'>Nom</th>
-                                <th bgcolor='#FFFFFFFF'>Tamany</th> 
-                                <th bgcolor='#FFFFFFFF'>Creació</th> 
-                                <th bgcolor='#FFFFFFFF'>Modificació</th> 
-                                <th bgcolor='#FFFFFFFF'>Últim accès</th>	 
-                            </tr>
-                            
-                            <td>$route_file_stats</td>
-                            <td>$statistics_file_name2</td>
-                            <td>$statistics_size_file bytes</td>
-                            <td>$statistics_creation_file</td>
-                            <td>$statistics_modification_file</td>	
-                            <td>$statistics_access_file</td>
-                        </table>";
-
-        echo "<br></br>";
+        echo "<table class='table table-bordered'> 
+                <thead>
+                    <tr>	
+                        <th>Ruta Completa</th>
+                        <th>Nom</th>
+                        <th>Tamany</th> 
+                        <th>Creació</th> 
+                        <th>Modificació</th> 
+                        <th>Últim accès</th>	 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>            
+                        <th>$route_file_stats</th>
+                        <th>$statistics_file_name2</th>
+                        <th>$statistics_size_file bytes</th>
+                        <th>$statistics_creation_file</th>
+                        <th>$statistics_modification_file</th>	
+                        <th>$statistics_access_file</th>
+                    </tr>
+                </tbody>
+              </table>";
     }
 }
 
-//Funció que ens eliminarà un fitxer d'un directori concret.
-function delete_file($delete_file) {
-    //Eliminem el fitxer
+//Funcion que nos eliminara el fichero de un directorio concreto
+function delete_file($delete_file)
+{
     $deletefile = unlink($delete_file);
 
-    //si el fitxer s'ha eliminar correctament, ens n'informarà.
     if ($deletefile) {
-        echo "El fichero: " . "<b>$delete_file</b>" . " ha sido eliminado correctamente.";
+        echo "El fichero: <b>$delete_file</b> ha sido eliminado correctamente.";
     }
 }
 
-//Funció que ens mourà l'arxiu d'un directori cap a un altre.
-function move_file($source_route, $destination_route) {
-    //Movem l'arxiu del directori origen al directori destí (podem renombrar el nom d'arxiu o possar-li el mateix).
+//Funcion que nos movera un archivo a otro
+function move_file($source_route, $destination_route)
+{
     $movefile = rename($source_route, $destination_route);
 
-    //Si l'arxiu s'ha mogut correctament, ens informarà que s'ha mogut.
     if ($movefile) {
-        echo "Se ha movido correctamente.";
+        echo "El fichero $source_route se ha movido correctamente a $destination_route.";
     }
 }
 
-//Funció que ens copiara un arxiu d'un direcotri cap a un altre.
-function copy_file($source_route, $destination_route) {
-    //Copiem l'arxiu del directori origen al directori destí (podem renombrar el nom d'arxiu o possar-li el mateix).
+//Funcion que nos copiara un arxivo a otro directorio
+function copy_file($source_route, $destination_route)
+{
     $copyfile = copy($source_route, $destination_route);
 
-    //Si l'arxiu s'ha copiat correctament, ens informarà que s'ha copiat.
     if ($copyfile) {
         echo "Se ha copiado correctamente.";
     }
 }
 
-//Funció que ens retorna el hash sha1 d’un fitxer.
-function sha1_file_function($dir) {
-    //Obtinc el hash sha1 de l'arxiu.
+//Funcion que nos retornara el hash sha1 de un fichero
+function sha1_file_function($dir)
+{
     $sha1file = sha1_file($dir);
 
-    //Si s'ha obtingut el hash correctament, ens el mostrarà.
     if ($sha1file) {
-        echo "El hash " . "<b>sha1</b>" . " del fitxer: " . "<b>$dir</b>" . " es: " . "<b>$sha1file</b>";
+        echo "El hash <b>sha1</b> del fitxer: <b>$dir</b> es: <b>$sha1file</b>";
     }
 }
 
-//Funció que ens retorna el hash md5 d’un fitxer.
-function md5_file_function($dir) {
-    //Obtinc el hash md5 de l'arxiu.
+//Funcion que nos retornara el hash md5 de un fichero
+function md5_file_function($dir)
+{
     $md5file = md5_file($dir);
 
-    //Si s'ha obtingut el hash correctament, ens el mostrarà.
     if ($md5file) {
-        echo "El hash " . "<b>md5</b>" . " del fitxer contingut en el directori: " . "<b>$dir</b>" . " es: " . "<b>$$md5file</b>";
+        echo "El hash <b>md5</b> del fitxer contingut en el directori: <b>$dir</b> es: <b>$$md5file</b>";
     }
 }
 
