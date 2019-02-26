@@ -3,7 +3,6 @@
 //Funcio per buscar un arxiu en un directori en concret.
 function find_file($source_route_file, $file)
 {
-
     if (file_exists($source_route_file . "/" . $file)) {
         echo "El fichero <b>$file</b> si que existe en el direcotrio: <b>$source_route_file</b>";
     } else {
