@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function delete_directory($dir)
     {
-        //Comproba si la ruta introduïda es vàlida o no.
+        //Comprueba si la ruta introduïda es valida o no.
         if (is_dir($dir)) {
             //Si la ruta almacenada en el argumento $dir no tiene la barra al final se la agregamos
             if (substr($dir, strlen($dir) - 1, 1) != '') {
@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $elements = array_diff(scandir($dir), array('.', '..'));
             //Recorremos los elementos del directorio
             foreach ($elements as $element) {
-                //Si es una carpeta
                 if (is_dir($dir . $element)) {
                     delete_directory($dir . $element);
                 } elseif (is_file($dir . $element)) {
@@ -35,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Una vez el directorio está vacío lo eliminamos
             if (rmdir($dir)) {
-                echo "El directorio introducido y sus subdirectorios con sus respectivos archivos se han eliminado correctamente. <b>$dir</b><br/>";
+                echo "El directorio <b>$dir</b> introducido y sus subdirectorios con sus respectivos archivos se han eliminado correctamente.";
             }
-            //Quan el directori introduït no existeix ens informarà.
+            //Quando el directorio introducido no existe nos informara.
         } elseif (!is_dir($dir)) {
-            echo "El directorio introducido <b>$dir</b> no es una ruta de directorio valida o bien no existe.<br/>";
+            echo "El directorio introducido <b>$dir</b> no es una ruta de directorio valida o bien no existe.";
         }
     }
 
@@ -59,13 +58,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $isMoved = rename($dir, $rutadesti . "/" . $dir);
 
-        return $isMoved;
+        if ($isMoved){
+            echo "Directorio $dir se ha movido a $rutadesti correctamente";
+        } else {
+            echo "Ha ocurrido algun error y no se ha podido mover";
+        }
     }
 
     function copy_directory($dir, $rutadesti)
     {
         $explode = explode("/", $dir);
-        return copy($dir, $rutadesti . "/" . $explode[1]);
+        if (copy($dir, $rutadesti . "/" . $explode[1])){
+            echo "Directorio $dir se ha copiado a $rutadesti correctamente";
+        } else {
+            echo "Ha ocurrido algun error y no se ha podido copiar";
+        }
     }
 
     function moveIfFileExist($dir, $rutadesti, $file, $isMoved)
