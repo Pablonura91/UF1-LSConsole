@@ -14,6 +14,7 @@ define("COMMANDLSSYSTEM", "ls");
 define("COMMANDDIRSYSTEM", "pwd");
 define("COMMANDSTATSSYSTEMSYSTEM", "systeminfo");
 define("COMMANDHELP", "help");
+define("COMMANDCLEAR", "clear");
 
 function help()
 {
