@@ -66,8 +66,7 @@ and open the template in the editor.
                 textStatus, errorThrown
             );
         });
-    })
-    ;
+    });
 </script>
 </body>
 </html>
