@@ -2,15 +2,18 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    function create_directory($dir) {
-        if (!mkdir($dir)) {
-            return false;
+    function create_directory($dir)
+    {
+        if (!file_exists($dir)) {
+            mkdir($dir);
+            echo "$dir Creado correctamente";
         } else {
-            return true;
+            echo "Error: $dir no se ha podido crear";
         }
     }
 
-    function delete_directory($dir) {
+    function delete_directory($dir)
+    {
         //Comproba si la ruta introduïda es vàlida o no.
         if (is_dir($dir)) {
             //Si la ruta almacenada en el argumento $dir no tiene la barra al final se la agregamos
@@ -40,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    function move_directory($dir, $rutadesti) {
+    function move_directory($dir, $rutadesti)
+    {
         $isMoved = false;
         if (is_dir($dir)) {
             $carpeta = scandir($dir);
@@ -58,12 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $isMoved;
     }
 
-    function copy_directory($dir, $rutadesti) {
+    function copy_directory($dir, $rutadesti)
+    {
         $explode = explode("/", $dir);
         return copy($dir, $rutadesti . "/" . $explode[1]);
     }
 
-    function moveIfFileExist($dir, $rutadesti, $file, $isMoved) {
+    function moveIfFileExist($dir, $rutadesti, $file, $isMoved)
+    {
         echo $rutadesti;
         try {
             if (file_exists($dir . "/" . $rutadesti . "/" . $file)) {
