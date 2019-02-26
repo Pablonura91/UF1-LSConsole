@@ -55,18 +55,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             md5_file_function($commandExplode[1]);
             break;
         case COMMANDLSSYSTEM:
-            llistat(getcwd());
+            list_file(getcwd());
             break;
         case COMMANDDIRSYSTEM:
             ruta();
             break;
         case COMMANDSTATSSYSTEMSYSTEM:
-            stats_sistema(getcwd());
+            stats_system(getcwd());
             break;
         case COMMANDHELP:
             commandExists();
             break;
+        case COMMANDCLEAR:
+            echo '';
+            break;
         default:
+            echo 'Comando no existe! estos son los que existen: <br>';
             commandExists();
             break;
     }
